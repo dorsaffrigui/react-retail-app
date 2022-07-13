@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import './App.scss'
+import './App.scss';
 import '@finastra/app-bar';
 import '@finastra/button';
 import '@finastra/user-profile';
@@ -10,7 +8,11 @@ import '@finastra/logo';
 import '@material/mwc-list';
 import '@finastra/logo';
 import '@finastra/launchpad';
-
+import '@finastra/base-card';
+import { Grid } from '@mui/material';
+import '@finastra/button-toggle-group';
+import Sheet from './transaction-component/transaction-widget';
+import QuickTransfer from './quicktransfer-component/quick-transfer-widget';
 
 function App() {
   return (
@@ -44,8 +46,6 @@ function App() {
       <div slot="appContent">
         <fds-app-bar appname="Super App" logoredirecturi="">
           <mwc-icon-button icon="menu" slot="navigationIcon"></mwc-icon-button>
-          <fds-launchpad slot="actions"></fds-launchpad>
-
           <mwc-icon-button icon="search" slot="actions"></mwc-icon-button>
           <mwc-icon-button icon="notifications_none" slot="actions"></mwc-icon-button>
           <mwc-icon-button icon="help_outline" slot="actions"></mwc-icon-button>
@@ -58,36 +58,30 @@ function App() {
           </fds-user-profile>
           <mwc-icon-button icon="more_vert" slot="actions"></mwc-icon-button>
         </fds-app-bar>
-        <div className="main-content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-              in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-              in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-              in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-              in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+        <div className="header">
+        </div>
+        <div className="content">
+          <div className="main-content">
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={8}>
+                  <Sheet>
+                  </Sheet>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <QuickTransfer></QuickTransfer>
+              </Grid>
+              <Grid item xs={6} md={8}>
+              </Grid>
+              <Grid item xs={6} md={4}>
+                <span>xs=6 md=8</span>
+              </Grid>
+            </Grid>
           </div>
         </div>
-      </fds-sidenav>
-    </div>
-    
+      </div>
+    </fds-sidenav>
+  </div>
+  
   );
 }
 
