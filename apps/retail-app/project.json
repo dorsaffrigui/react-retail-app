@@ -1,0 +1,84 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/retail-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/retail-app",
+        "index": "apps/retail-app/src/index.html",
+        "baseHref": "/",
+        "main": "apps/retail-app/src/main.tsx",
+        "polyfills": "apps/retail-app/src/polyfills.ts",
+        "tsConfig": "apps/retail-app/tsconfig.app.json",
+        "assets": [
+          "apps/retail-app/src/favicon.ico",
+          "apps/retail-app/src/assets"
+        ],
+        "styles": ["apps/retail-app/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/retail-app/src/environments/environment.ts",
+              "with": "apps/retail-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "retail-app:build",
+        "hmr": true,
+        "proxyConfig": "apps/retail-app/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "retail-app:build:development"
+        },
+        "production": {
+          "buildTarget": "retail-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/retail-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/retail-app"],
+      "options": {
+        "jestConfig": "apps/retail-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
