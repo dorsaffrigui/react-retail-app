@@ -11,13 +11,17 @@ import Transaction from './transaction.js';
 
 function Sheet() {
 
-  var SERVER_URL = "http://127.0.0.1:3333/api"
+  const serverUri = 'http://localhost:3000';
+  const serviceId = 'ACCOUNT_INFORMATION_US';
+  const accountId = '112';
+  //const target = `${accountId}/details`;
+  const target = `/details`;
 
   let [transactions, setTransactions] = useState([]);
 
   const getTransactions = async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/transactions`, {mode:'cors'});
+      const response = await fetch(`${serverUri}/proxy?serviceId=${serviceId}&target=${target}`);
       const data = await response.json();
       console.log(data);
       setTransactions(data);
