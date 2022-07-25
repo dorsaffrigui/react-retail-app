@@ -1,4 +1,5 @@
-import './date-item.scss'
+import './date-item.scss';
+import { CalendarToday } from '@mui/icons-material';
 
 
 function DateItem({
@@ -7,11 +8,12 @@ function DateItem({
   return (
     <div className="date-item"> 
         <div className="box">
-            <div className="box-title">
-                <span>{date}</span>
-            </div>
-            <div>
-            </div>
+          <div className="box-icon">
+            <CalendarToday/>
+          </div>
+          <div className="box-title">
+              <span>{date}</span>
+          </div>
         </div>         
     </div>
   

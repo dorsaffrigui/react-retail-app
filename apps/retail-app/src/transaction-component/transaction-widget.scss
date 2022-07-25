@@ -33,8 +33,22 @@ body {
         padding-top: 24px;
     }
 
-    fds-botton-toggle-group{
-        width: 120px;
+    .progress{
+        padding: 30%;
+    }
+
+    .progress-bar{
+        float: left;
+    }
+
+    .progress-bar-text{
+        font: var(--fds-body-2);
+        padding-left: var(--fds-spacing-3);
+        padding-top: 10px;
+    }
+
+    .progress-bar-icon{
+        color: var(--fds-primary);
     }
 }
 

@@ -75,12 +75,16 @@ export function App() {
                   </Sheet>
               </Grid>
               <Grid item xs={6} md={4}>
-                <QuickTransfer></QuickTransfer>
+                <div>
+                  <div className="side-content">
+                    <QuickTransfer></QuickTransfer>
+                  </div>
+                  <MyAdvisor></MyAdvisor>
+                </div>
               </Grid>
               <Grid item xs={6} md={8}>
               </Grid>
               <Grid item xs={6} md={4}>
-                <MyAdvisor></MyAdvisor>
               </Grid>
             </Grid>
           </div>

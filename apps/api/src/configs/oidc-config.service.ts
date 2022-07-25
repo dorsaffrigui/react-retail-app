@@ -33,7 +33,7 @@ origin        : ${origin}`);
       userInfoMethod: UserInfoMethod.token,
       defaultHttpOptions: {
         timeout: 20000,
-      },
+      }
     };
   }
 }

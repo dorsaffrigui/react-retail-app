@@ -17,7 +17,8 @@ async function bootstrap() {
 
   app.useGlobalGuards(app.get(TokenGuard));
 
-  setupSession(app, 'NAME_OF_YOUR_APP__CHANGE_IT'); 
+  setupSession(app, 'react-retail-app'); 
+
 
   const port = process.env.PORT || 3000;
 
