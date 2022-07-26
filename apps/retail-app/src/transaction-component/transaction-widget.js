@@ -17,6 +17,7 @@ function Sheet() {
   const target = `/accounts/${accountId}/transactions?offset=0&limit=100`;
 
   let [transactions, setTransactions] = useState([]);
+  let [display, setDisplay] = useState([]);
 
   const getTransactions = useCallback(async () => {
     try {
@@ -37,14 +38,18 @@ function Sheet() {
     }
   })
 
-  const list = Object.keys(transactions).map(function(key) {
+  const all = Object.keys(transactions).map(function(key) {
     return(
       <div>
         <DateItem date={compareDates(key)}/>
-        {transactions[key].map(transaction => {return(<Transaction title={transaction.description} amount={transaction.transactionAmount} accNumber={transaction.id}/>)})}
+        {transactions[key].map(transaction => 
+            <Transaction title={transaction.description} amount={transaction.transactionAmount} accNumber={transaction.id}/>
+          )}
       </div>
     )
   });
+
+
 
   function compareDates(date){
     const today = new Date();
@@ -67,6 +72,7 @@ function Sheet() {
 
   useEffect(() => {
     getTransactions();
+    setDisplay(all);
   }, [])
 
   return (
@@ -83,7 +89,6 @@ function Sheet() {
                 <fds-button-toggle label="All"></fds-button-toggle>
                 <fds-button-toggle label="Income"></fds-button-toggle>
                 <fds-button-toggle label="Expenses"></fds-button-toggle>
-                <fds-button-toggle label="Transfers"></fds-button-toggle>
               </fds-button-toggle-group>
             </Grid>
             <Grid item xs={6} md={4}>
@@ -107,7 +112,7 @@ function Sheet() {
                 </div>
                 )}
               <div className="transaction-list">
-                {list}
+                {display}
               </div>
             </Grid>
           </Grid>
