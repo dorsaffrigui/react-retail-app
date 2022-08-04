@@ -3,38 +3,53 @@ import '@finastra/button-toggle-group';
 import '@finastra/button-toggle';
 import '@finastra/search-input';
 import { useEffect } from 'react';
-import { useState } from 'react';
-import { Grid } from '@mui/material';
+import { useState, useCallback } from 'react';
+import { Grid, CircularProgress } from '@mui/material';
 import DateItem from './date-item.js';
 import Transaction from './transaction.js';
 
 
 function Sheet() {
 
-  var SERVER_URL = "http://127.0.0.1:3333/api"
+  const serverUri = 'http://localhost:3000';
+  const serviceId = 'ACCOUNT_INFORMATION_US';
+  const accountId = '6787147';
+  const target = `/accounts/${accountId}/transactions?offset=0&limit=100`;
 
   let [transactions, setTransactions] = useState([]);
+  let [display, setDisplay] = useState([]);
 
-  const getTransactions = async () => {
+  const getTransactions = useCallback(async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/transactions`, {mode:'cors'});
+      const response = await fetch(`${serverUri}/proxy?serviceId=${serviceId}&target=${target}`);
       const data = await response.json();
-      console.log(data);
-      setTransactions(data);
+      const filterByDate = data.reduce((groups, transactions) => {
+        const date = transactions.transactionDate;
+        if (!groups[date]) {
+          groups[date] = [];
+        }
+        groups[date].push(transactions);
+        return groups;
+      }, {});
+      setTransactions(filterByDate);
     }
     catch (e) {
       console.log(e)
     }
-  }
+  })
 
-  const list = Object.keys(transactions).map(function(key) {
+  const all = Object.keys(transactions).map(function(key) {
     return(
       <div>
         <DateItem date={compareDates(key)}/>
-        {transactions[key].map(transaction => {return(<Transaction title={transaction.title} amount={transaction.amount} accNumber={transaction.account_number}/>)})}
+        {transactions[key].map(transaction => 
+            <Transaction title={transaction.description} amount={transaction.transactionAmount} accNumber={transaction.id}/>
+          )}
       </div>
     )
   });
+
+
 
   function compareDates(date){
     const today = new Date();
@@ -53,11 +68,11 @@ function Sheet() {
         return date;
       }
     }
-
   }
 
   useEffect(() => {
     getTransactions();
+    setDisplay(all);
   }, [])
 
   return (
@@ -67,21 +82,37 @@ function Sheet() {
           <span className="title">Transactions</span>
         </div>
         <div className="layout">
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems="center"
+               justifyContent="center">
             <Grid item xs={6} md={8}>
               <fds-button-toggle-group>
                 <fds-button-toggle label="All"></fds-button-toggle>
                 <fds-button-toggle label="Income"></fds-button-toggle>
                 <fds-button-toggle label="Expenses"></fds-button-toggle>
-                <fds-button-toggle label="Transfers"></fds-button-toggle>
               </fds-button-toggle-group>
             </Grid>
             <Grid item xs={6} md={4}>
               <fds-search-input></fds-search-input>
             </Grid>
             <Grid item xs={6} md={12}>
+              {transactions.length == 0 && (
+                <div className="progress">
+                  <div className="parent">
+                    <div className="progress-bar">
+                      <div>
+                        <CircularProgress className="progress-bar-icon"/>
+                      </div>
+                    </div>
+                    <div className="progress-bar">
+                      <div className="progress-bar-text">
+                        <span>Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                )}
               <div className="transaction-list">
-                {list}
+                {display}
               </div>
             </Grid>
           </Grid>

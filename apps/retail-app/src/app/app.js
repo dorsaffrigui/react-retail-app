@@ -11,11 +11,16 @@ import '@finastra/logo';
 import { Grid } from '@mui/material';
 import Sheet from '../transaction-component/transaction-widget';
 import QuickTransfer from '../quicktransfer-component/quick-transfer-widget';
+import MyAdvisor from '../myadvisor-component/myadvisor-widget';
 
 
 import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
+
+
+
+
 
   return (
     <div className="App">
@@ -70,12 +75,16 @@ export function App() {
                   </Sheet>
               </Grid>
               <Grid item xs={6} md={4}>
-                <QuickTransfer></QuickTransfer>
+                <div>
+                  <div className="side-content">
+                    <QuickTransfer></QuickTransfer>
+                  </div>
+                  <MyAdvisor></MyAdvisor>
+                </div>
               </Grid>
               <Grid item xs={6} md={8}>
               </Grid>
               <Grid item xs={6} md={4}>
-                <span>xs=6 md=8</span>
               </Grid>
             </Grid>
           </div>
