@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "nx build",
+    "start": "node dist/apps/api/main.js",
     "start:prod": "node dist/apps/api/main.js",
     "start:server": "nx serve server --port 9229",
     "build": "nx build",
